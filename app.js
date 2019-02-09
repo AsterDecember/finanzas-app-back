@@ -16,13 +16,13 @@ const MongoStore   = require('connect-mongo')(session)
 
 // Mongoose configuration
 mongoose
-  .connect('mongodb://localhost/users-pp', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+    .connect(process.env.DB, {useNewUrlParser: true})
+    .then(x => {
+      //console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    })
+    .catch(err => {
+      console.error('Error connecting to mongo', err)
+    });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
