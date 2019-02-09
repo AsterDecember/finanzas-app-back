@@ -23,7 +23,7 @@ mongoose
   .catch(err => {
     console.error('Error connecting to mongo', err)
   });
-  
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -72,12 +72,15 @@ app.locals.title = 'Finanzas Mike App';
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000','http://localhost:3001','https://floating-plains-96602.herokuapp.com/']
+  origin: ['http://localhost:3000','http://localhost:3001']
 }))
 
 const index = require('./routes/index');
 app.use('/', index);
-
+const authRoutes = require('./routes/auth')
+app.use('/api',authRoutes)
+const incomeRoutes = require('./routes/income')
+app.use('/api',incomeRoutes)
 
 
 module.exports = app;
